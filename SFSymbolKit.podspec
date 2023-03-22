@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'SFSymbolKit'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of SFSymbolKit.'
+  s.summary          = 'Use SFSymbol on iOS9+.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,17 +18,17 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Export symbol svg file from SFSymbol app, and use it on iOS device.
                        DESC
 
-  s.homepage         = 'https://github.com/冷秋/SFSymbolKit'
+  s.homepage         = 'https://github.com/Magic-Unique/SFSymbolKit'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '冷秋' => '516563564@qq.com' }
-  s.source           = { :git => 'https://github.com/冷秋/SFSymbolKit.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/Magic-Unique/SFSymbolKit.git', :tag => "#{s.version}" }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'SFSymbolKit/Classes/**/*'
   

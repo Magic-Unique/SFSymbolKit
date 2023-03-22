@@ -7,6 +7,7 @@
 //
 
 #import "SKViewController.h"
+#import <SFSymbolKit/SFSymbolKit.h>
 
 @interface SKViewController ()
 
