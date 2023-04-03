@@ -12,18 +12,19 @@
 
 @interface SKSymbolTheme : NSObject
 
+/// Symbol weight must set when init
 @property (nonatomic, strong) SKSymbolWeight weight;
 
+/// Symbol scale must set when init
 @property (nonatomic, strong) SKSymbolScale scale;
 
+/// Set the color, and publish manually
 @property (nonatomic, strong) SKSymbolColor *color;
 
 + (instancetype)sharedTheme;
 
+/// Publish color changed, Redraw all loaded SKSymbolImage whose color is nil.
 - (void)publish;
-
-
-+ (SKSymbolWeight)currentSymbolWeight;
 
 @end
 

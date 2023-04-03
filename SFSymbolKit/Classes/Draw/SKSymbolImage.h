@@ -26,12 +26,16 @@
 
 @interface SKSymbolImage : NSObject
 
+/// The symbol
 @property (nonatomic, strong, readonly) SKSymbol *symbol;
 
+/// Default is nil (binding to SKSymbolTheme.color).
 @property (nonatomic, strong) SKSymbolColor *color;
 
+/// The symbol point size
 @property (nonatomic, assign) CGFloat pointSize;
 
+/// The symbol variable
 @property (nonatomic, assign) double variable;
 
 #ifdef DEBUG

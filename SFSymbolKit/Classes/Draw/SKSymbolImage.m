@@ -109,7 +109,7 @@ static NSArray<SKAttributedPath *> *SKAttributedPathsFromSymbol(SKSymbol *svg, d
     const CGFloat POINT_SIZE = pointSize;
     const CGAffineTransform TRANSKORM = CGAffineTransformMakeScale(POINT_SIZE / 100, POINT_SIZE / 100);
     
-    SKSymbolWeight weight = [SKSymbolTheme currentSymbolWeight];
+    SKSymbolWeight weight = [SKSymbolTheme sharedTheme].weight;
     SKSymbolScale scale = SKSymbolScaleSmall;
     SKGraphic *graphic = [svg graphicForWeight:weight scale:scale];
     CGAffineTransform transform = graphic.transform;
@@ -192,8 +192,9 @@ static NSArray<SKAttributedPath *> *SKAttributedPathsFromSymbol(SKSymbol *svg, d
     if (self) {
         _symbol = symbol;
         _pointSize = 100;
-        _color = [SKSymbolColor monochrome];
+        _color = nil;
         _redraw = YES;
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onThemeChanged:) name:SKSymbolThemeDidChangeNotification object:nil];
 #ifdef DEBUG
         _indexOptions = NSUIntegerMax;
 #endif
@@ -222,6 +223,13 @@ static NSArray<SKAttributedPath *> *SKAttributedPathsFromSymbol(SKSymbol *svg, d
     [self setNeedsRedraw];
 }
 
+- (void)onThemeChanged:(NSNotification *)notification {
+    if (self.color) {
+        return;
+    }
+    [self setNeedsRedraw];
+}
+
 #ifdef DEBUG
 - (void)setIndexOptions:(NSUInteger)indexOptions {
     if (_indexOptions == indexOptions) {
@@ -244,7 +252,7 @@ static NSArray<SKAttributedPath *> *SKAttributedPathsFromSymbol(SKSymbol *svg, d
     _display_index_options_ = _indexOptions;
 #endif
     SKBezierPath *fullPath = [SKBezierPath bezierPath];
-    _attributedPaths = SKAttributedPathsFromSymbol(self.symbol, self.variable, self.color, self.pointSize, fullPath);
+    _attributedPaths = SKAttributedPathsFromSymbol(self.symbol, self.variable, self.color ?: [SKSymbolTheme sharedTheme].color, self.pointSize, fullPath);
     CGRect bounds = fullPath.bounds;
     CGAffineTransform transform = CGAffineTransformMakeTranslation(-bounds.origin.x + 1, -bounds.origin.y + 1);
     [_attributedPaths enumerateObjectsUsingBlock:^(SKAttributedPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {

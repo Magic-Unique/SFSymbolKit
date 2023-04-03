@@ -9,22 +9,8 @@
 #import "SKStyle.h"
 #import "SKGraphic.h"
 
-/*
- document: {
-    style: {
-        css: {}
-        attr(for key: String)
-    }
-    templateVersion: 1.0
-    graphics: []
- }
- 
- drawable {
-    var: float
- }
- */
-
 @class UIImage;
+@class SKXMLDocument;
 
 @interface SKSymbol : NSObject
 
@@ -39,6 +25,14 @@
 + (instancetype)symbolWithName:(NSString *)name;
 + (instancetype)symbolWithName:(NSString *)name inBundle:(NSBundle *)bundle;
 + (instancetype)symbolWithContentsOfFile:(NSString *)filePath error:(NSError **)error;
++ (instancetype)symbolWithContentsOfURL:(NSURL *)URL error:(NSError **)error;
+
+
+/// No cache. Do not use this method to create instance
+/// - Parameters:
+///   - document: SKXMLDocument
+///   - error: NSError
++ (instancetype)symbolWithXMLDocument:(SKXMLDocument *)document error:(NSError **)error;
 
 - (SKGraphic *)graphicForWeight:(SKSymbolWeight)weight scale:(SKSymbolScale)scale;
 

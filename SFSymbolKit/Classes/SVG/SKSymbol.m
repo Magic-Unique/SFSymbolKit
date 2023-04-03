@@ -9,6 +9,7 @@
 #import "SKXMLDocument.h"
 #import "SKGraphicParser.h"
 #import "SKTypeCategory.h"
+#import "SKSymbolManager.h"
 
 #define SK_GRAPHIC_KEY(W, S) [NSString stringWithFormat:@"%@-%@", W, S]
 
@@ -34,14 +35,14 @@
 }
 
 + (instancetype)symbolWithContentsOfFile:(NSString *)filePath error:(NSError *__autoreleasing *)error {
-    SKXMLDocument *document = [SKXMLDocument documentWithContentsOfFile:filePath error:error];
-    if (!document) {
-        return nil;
-    }
-    return [self SVGWithXMLDocument:document error:error];
+    return [self symbolWithContentsOfURL:[NSURL fileURLWithPath:filePath] error:error];
 }
 
-+ (instancetype)SVGWithXMLDocument:(SKXMLDocument *)document error:(NSError *__autoreleasing *)error {
++ (instancetype)symbolWithContentsOfURL:(NSURL *)URL error:(NSError **)error {
+    return [[SKSymbolManager sharedManager] symbolWithURL:URL error:error];
+}
+
++ (instancetype)symbolWithXMLDocument:(SKXMLDocument *)document error:(NSError *__autoreleasing *)error {
     SKXMLElement *SVG = document.rootElement;
     
     // Template Version: Template v.*.0

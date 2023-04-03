@@ -11,6 +11,6 @@
 
 @interface SKXMLParser : NSObject
 
-+ (SKXMLElement *)parseFile:(NSString *)SVCFilePath error:(NSError **)error;
++ (SKXMLElement *)parseURL:(NSURL *)URL error:(NSError **)error;
 
 @end

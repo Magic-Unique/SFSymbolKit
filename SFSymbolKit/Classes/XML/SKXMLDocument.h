@@ -75,5 +75,7 @@
 
 + (instancetype)documentWithContentsOfFile:(NSString *)filePath error:(NSError **)error;
 
++ (instancetype)documentWithContentsOfURL:(NSURL *)URL error:(NSError **)error;
+
 @end
 

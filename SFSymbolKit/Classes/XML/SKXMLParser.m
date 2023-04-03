@@ -24,8 +24,8 @@
 
 @implementation SKXMLParser
 
-+ (SKXMLElement *)parseFile:(NSString *)SVCFilePath error:(NSError *__autoreleasing *)error {
-    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:[NSURL fileURLWithPath:SVCFilePath]];
++ (SKXMLElement *)parseURL:(NSURL *)URL error:(NSError *__autoreleasing *)error {
+    NSXMLParser *xmlParser = [[NSXMLParser alloc] initWithContentsOfURL:URL];
     SKXMLParser *svgParser = [[SKXMLParser alloc] initWithXMLParser:xmlParser];
     NSError *_error = [svgParser parse];
     if (error) {

@@ -30,6 +30,10 @@
     return self;
 }
 
+- (void)setColor:(SKSymbolColor *)color {
+    _color = color;
+}
+
 - (void)publish {
     [[NSNotificationCenter defaultCenter] postNotificationName:SKSymbolThemeDidChangeNotification
                                                         object:self

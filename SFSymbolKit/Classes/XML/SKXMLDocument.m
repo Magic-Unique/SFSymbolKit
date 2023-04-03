@@ -109,7 +109,11 @@ SK_INTEGER_GETTER(height)
 @implementation SKXMLDocument
 
 + (instancetype)documentWithContentsOfFile:(NSString *)filePath error:(NSError *__autoreleasing *)error {
-    SKXMLElement *rootElement = [SKXMLParser parseFile:filePath error:error];
+    return [self documentWithContentsOfURL:[NSURL fileURLWithPath:filePath] error:error];
+}
+
++ (instancetype)documentWithContentsOfURL:(NSURL *)URL error:(NSError **)error {
+    SKXMLElement *rootElement = [SKXMLParser parseURL:URL error:error];
     if (rootElement) {
         return [[self alloc] initWithRootElement:rootElement];
     } else {
