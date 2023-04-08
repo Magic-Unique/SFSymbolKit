@@ -13,9 +13,9 @@
 
 @interface SKAttributedPath : NSObject
 
-@property (nonatomic, strong) SKColor *fillColor;
+@property (nonatomic, strong, nonnull) SKColor *fillColor;
 
-@property (nonatomic, strong) SKBezierPath *bezierPath;
+@property (nonatomic, strong, nonnull) SKBezierPath *bezierPath;
 
 @property (nonatomic, assign) BOOL clearBehind;
 
@@ -27,10 +27,16 @@
 @interface SKSymbolImage : NSObject
 
 /// The symbol
-@property (nonatomic, strong, readonly) SKSymbol *symbol;
+@property (nonatomic, strong, readonly, nonnull) SKSymbol *symbol;
+
+/// Default is nil (Render with SKSymbolTheme.weight)
+@property (nonatomic, strong, nullable) SKSymbolWeight weight;
+
+/// Default is nil (Render with SKSymbolTheme.scale)
+@property (nonatomic, strong, nullable) SKSymbolScale scale;
 
 /// Default is nil (binding to SKSymbolTheme.color).
-@property (nonatomic, strong) SKSymbolColor *color;
+@property (nonatomic, strong, nullable) SKSymbolColor *color;
 
 /// The symbol point size
 @property (nonatomic, assign) CGFloat pointSize;
@@ -43,15 +49,15 @@
 #endif
 
 @property (nonatomic, assign, readonly) CGRect bounds;
-@property (nonatomic, strong, readonly) SKBezierPath *fullPath;
-@property (nonatomic, strong, readonly) NSArray<SKAttributedPath *> *attributedPaths;
+@property (nonatomic, strong, readonly, nonnull) SKBezierPath *fullPath;
+@property (nonatomic, strong, readonly, nonnull) NSArray<SKAttributedPath *> *attributedPaths;
 
-+ (instancetype)symbolImageWithSymbol:(SKSymbol *)symbol;
-- (instancetype)initWithSymbol:(SKSymbol *)symbol;
++ (instancetype _Nonnull)symbolImageWithSymbol:(SKSymbol * _Nonnull)symbol;
+- (instancetype _Nonnull)initWithSymbol:(SKSymbol * _Nonnull)symbol;
 
-+ (instancetype)symbolImageNamed:(NSString *)name pointSize:(CGFloat)pointSize;
-+ (instancetype)symbolImageNamed:(NSString *)name pointSize:(CGFloat)pointSize variable:(double)variable;
-+ (instancetype)symbolImageNamed:(NSString *)name pointSize:(CGFloat)pointSize variable:(double)variable inBundle:(NSBundle *)bundle;
++ (instancetype _Nullable)symbolImageNamed:(NSString * _Nonnull)name pointSize:(CGFloat)pointSize;
++ (instancetype _Nullable)symbolImageNamed:(NSString * _Nonnull)name pointSize:(CGFloat)pointSize variable:(double)variable;
++ (instancetype _Nullable)symbolImageNamed:(NSString * _Nonnull)name pointSize:(CGFloat)pointSize variable:(double)variable inBundle:(NSBundle * _Nullable)bundle;
 
 @end
 
@@ -59,13 +65,13 @@
 
 #pragma mark - Private
 
-FOUNDATION_EXTERN NSString *const SKSymbolImageRedrawObserveKey;
+FOUNDATION_EXTERN NSString * _Nonnull const SKSymbolImageRedrawObserveKey;
 
 @protocol SKSymbolRedrawObserver <NSObject>
 
-@property (nonatomic, strong) id<NSObject> observer;
+@property (nonatomic, strong, nullable) id<NSObject> observer;
 
-- (void)symbolImageNeedsRedraw:(SKSymbolImage *)symbolImage;
+- (void)symbolImageNeedsRedraw:(SKSymbolImage * _Nonnull)symbolImage;
 
 @end
 
@@ -73,8 +79,8 @@ FOUNDATION_EXTERN NSString *const SKSymbolImageRedrawObserveKey;
 
 @property (nonatomic, assign) BOOL redraw;
 
-- (id<NSObject>)addRedrawObserver:(id<SKSymbolRedrawObserver>)observer;
-- (void)removeRedrawObserver:(id<SKSymbolRedrawObserver>)observer;
+- (id<NSObject> _Nonnull)addRedrawObserver:(id<SKSymbolRedrawObserver> _Nonnull)observer;
+- (void)removeRedrawObserver:(id<SKSymbolRedrawObserver> _Nonnull)observer;
 
 - (void)setNeedsRedraw;
 

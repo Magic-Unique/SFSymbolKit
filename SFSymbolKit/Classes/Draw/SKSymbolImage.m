@@ -105,12 +105,14 @@ static SKColor *SKColorForDraw_2_0() {
     return [SKColor blackColor];
 }
 
-static NSArray<SKAttributedPath *> *SKAttributedPathsFromSymbol(SKSymbol *svg, double variable, SKSymbolColor *color, CGFloat pointSize, SKBezierPath *fullPath) {
+static NSArray<SKAttributedPath *> *SKAttributedPathsFromSymbol(SKSymbol *svg, SKSymbolWeight weight, SKSymbolScale scale,
+                                                                double variable, SKSymbolColor *color,
+                                                                CGFloat pointSize, SKBezierPath *fullPath) {
     const CGFloat POINT_SIZE = pointSize;
     const CGAffineTransform TRANSKORM = CGAffineTransformMakeScale(POINT_SIZE / 100, POINT_SIZE / 100);
     
-    SKSymbolWeight weight = [SKSymbolTheme sharedTheme].weight;
-    SKSymbolScale scale = SKSymbolScaleSmall;
+    weight = weight ?: [SKSymbolTheme sharedTheme].weight;
+    scale = scale ?: SKSymbolScaleSmall;
     SKGraphic *graphic = [svg graphicForWeight:weight scale:scale];
     CGAffineTransform transform = graphic.transform;
     transform = CGAffineTransformConcat(transform, TRANSKORM);
@@ -252,7 +254,9 @@ static NSArray<SKAttributedPath *> *SKAttributedPathsFromSymbol(SKSymbol *svg, d
     _display_index_options_ = _indexOptions;
 #endif
     SKBezierPath *fullPath = [SKBezierPath bezierPath];
-    _attributedPaths = SKAttributedPathsFromSymbol(self.symbol, self.variable, self.color ?: [SKSymbolTheme sharedTheme].color, self.pointSize, fullPath);
+    _attributedPaths = SKAttributedPathsFromSymbol(self.symbol, self.weight, self.scale,
+                                                   self.variable, self.color ?: [SKSymbolTheme sharedTheme].color,
+                                                   self.pointSize, fullPath);
     CGRect bounds = fullPath.bounds;
     CGAffineTransform transform = CGAffineTransformMakeTranslation(-bounds.origin.x + 1, -bounds.origin.y + 1);
     [_attributedPaths enumerateObjectsUsingBlock:^(SKAttributedPath * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
