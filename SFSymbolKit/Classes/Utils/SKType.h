@@ -101,7 +101,7 @@ NS_INLINE CGAffineTransform CGAffineTransformFromStyle(NSString *style) {
     }
 }
 
-typedef NSString *SKSymbolWeight;
-typedef NSString *SKSymbolScale;
+typedef NSString *SKSymbolWeight NS_STRING_ENUM;
+typedef NSString *SKSymbolScale NS_STRING_ENUM;
 
 #endif /* SKType_h */
