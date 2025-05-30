@@ -101,7 +101,7 @@ static SKColor *SKColorForDraw_3_0(NSDictionary<NSString *, SKClassStyle *> *sty
 }
 
 /// 模板 2.0，纯黑色
-static SKColor *SKColorForDraw_2_0() {
+static SKColor *SKColorForDraw_2_0(void) {
     return [SKColor blackColor];
 }
 

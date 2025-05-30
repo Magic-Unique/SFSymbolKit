@@ -142,8 +142,8 @@ SKInt SKIntFromString(NSString *string) {
     return (SKInt)intStr.integerValue;
 }
 
-NSCharacterSet *SKNumberCharacterSet() { return [NSCharacterSet characterSetWithCharactersInString:@"0123456789.-"]; }
-NSCharacterSet *SKSeparatorCharacterSet() { return [NSCharacterSet characterSetWithCharactersInString:@"MLHVCSQTAZ "]; }
+NSCharacterSet *SKNumberCharacterSet(void) { return [NSCharacterSet characterSetWithCharactersInString:@"0123456789.-"]; }
+NSCharacterSet *SKSeparatorCharacterSet(void) { return [NSCharacterSet characterSetWithCharactersInString:@"MLHVCSQTAZ "]; }
 
 NSMutableArray<NSString *> *SKSplitD(NSString *d) {
     d = [d stringByReplacingOccurrencesOfString:@"-" withString:@" -"];
