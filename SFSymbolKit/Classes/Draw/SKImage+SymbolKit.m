@@ -28,15 +28,28 @@ static SKImage *SKImageFromSymbolImage(SKSymbolImage *symbolImage, CGSize size) 
         contextSize = size;
         transform = CGAffineTransformMakeTranslation((contextSize.width - symbolSize.width) * 0.5, (contextSize.height - symbolSize.height) * 0.5);
     }
-    UIGraphicsBeginImageContextWithOptions(contextSize, NO, UIScreen.mainScreen.scale);
-    for (SKAttributedPath *path in symbolImage.attributedPaths) {
-        [path.fillColor setFill];
-        SKBezierPath *bezierPath = [path.bezierPath copy];
-        [bezierPath applyTransform:transform];
-        [bezierPath fillWithBlendMode:path.blendMode alpha:1];
+    SKImage *image = nil;
+    if (@available(iOS 10.0, *)) {
+        UIGraphicsImageRenderer *render = [[UIGraphicsImageRenderer alloc] initWithSize:contextSize];
+        image = [render imageWithActions:^(UIGraphicsImageRendererContext * _Nonnull rendererContext) {
+            for (SKAttributedPath *path in symbolImage.attributedPaths) {
+                [path.fillColor setFill];
+                SKBezierPath *bezierPath = [path.bezierPath copy];
+                [bezierPath applyTransform:transform];
+                [bezierPath fillWithBlendMode:path.blendMode alpha:1];
+            }   
+        }];
+    } else {
+        UIGraphicsBeginImageContextWithOptions(contextSize, NO, UIScreen.mainScreen.scale);
+        for (SKAttributedPath *path in symbolImage.attributedPaths) {
+            [path.fillColor setFill];
+            SKBezierPath *bezierPath = [path.bezierPath copy];
+            [bezierPath applyTransform:transform];
+            [bezierPath fillWithBlendMode:path.blendMode alpha:1];
+        }
+        image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
     }
-    SKImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
     return [image imageWithRenderingMode:symbolImage.color.renderingMode];
 }
 

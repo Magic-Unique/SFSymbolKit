@@ -1,5 +1,5 @@
 PODS:
-  - SFSymbolKit (0.1.0)
+  - SFSymbolKit (0.2.1)
 
 DEPENDENCIES:
   - SFSymbolKit (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SFSymbolKit: 49395090e621177d0bdeb83405b09f589735d9e6
+  SFSymbolKit: b7633549e74ea2656dd951bab398ee72a221b90e
 
 PODFILE CHECKSUM: f6d76fed4fe6585113e7b5a4a3833f304b76bd92
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.16.2

@@ -11,6 +11,8 @@
 
 @interface SKViewController ()
 
+@property (nonatomic, strong) UIImageView *imageView;
+
 @end
 
 @implementation SKViewController
@@ -19,6 +21,11 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    UIImage *image = [UIImage sk_imageNamed:@"widget.small.badge.plus" pointSize:100];
+    self.imageView = [[UIImageView alloc] initWithImage:image];
+    [self.view addSubview:self.imageView];
+    self.imageView.center = self.view.center;
 }
 
 - (void)didReceiveMemoryWarning
